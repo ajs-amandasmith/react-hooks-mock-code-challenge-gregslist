@@ -4,6 +4,7 @@ import ListingsContainer from "./ListingsContainer";
 
 function App() {
   const [listings, setListings] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:6001/listings")
@@ -17,11 +18,15 @@ function App() {
     const newListings = listings.filter(listing => listing.id !== id);
     setListings(newListings);
   }
+
+  function handleSearchChange(newSearch) {
+    setSearch(newSearch);
+  }
   
   return (
     <div className="app">
-      <Header />
-      <ListingsContainer listings={listings} deleteListing={deleteListing} />
+      <Header handleSearchChange={handleSearchChange} search={search} />
+      <ListingsContainer listings={listings} deleteListing={deleteListing} search={search} />
     </div>
   );
 }
